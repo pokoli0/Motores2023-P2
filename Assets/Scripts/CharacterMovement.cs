@@ -72,5 +72,11 @@ public class CharacterMovement : MonoBehaviour
         // Usamos el método Move, que mueve el gameObject en la dirección determinada por
         //_movementDirection, y con la velocidad _movementSpeed. 
         _myCharacterController.Move(_movementDirection * Time.deltaTime * _movementSpeed);
+
+        if(_movementDirection != Vector3.zero)
+        {
+            // Para que mire en la dirección del movimiento: 
+            _myTransform.forward = _movementDirection.normalized; 
+        }
     }
 }
