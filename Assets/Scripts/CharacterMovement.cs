@@ -9,6 +9,16 @@ public class CharacterMovement : MonoBehaviour
     /// </summary>
     [SerializeField]
     private float _movementSpeed = 3.0f;
+    /// <summary>
+    /// Vertical speed assigned to character when jump starts
+    /// </summary>
+    [SerializeField]
+    private float _jumpSpeed = 20.0f;
+    /// <summary>
+    /// Minimum vertical speed to limitate falling speed
+    /// </summary>
+    [SerializeField]
+    private float _minSpeed = -10.0f;
     #endregion
     #region references
     /// <summary>
@@ -19,6 +29,10 @@ public class CharacterMovement : MonoBehaviour
     /// Reference to Player's Transform
     /// </summary>
     private Transform _myTransform;
+    /// <summary>
+    /// Reference to Camera's CameraController
+    /// </summary>
+    private CameraController _cameraController;
     #endregion
     #region properties
     /// <summary>
@@ -33,6 +47,10 @@ public class CharacterMovement : MonoBehaviour
     /// Movement direction vector
     /// </summary>
     private Vector3 _movementDirection;
+    /// <summary>
+    /// Movement vertical speed (needs to be updated every frame due to gravity)
+    /// </summary>
+    private float _verticalSpeed;
     #endregion
     #region methods
     /// <summary>
@@ -51,9 +69,20 @@ public class CharacterMovement : MonoBehaviour
     {
         _zAxis = y;
     }
+    /// <summary>
+    /// Public method called when the player tries to perform a new Jump. (Will be called from InputManager)
+    /// If the Character is grounded, it overrides current value or _verticalSpeed with _jumpSpeed.
+    /// Otherwise, the request to jump is ignored.
+    /// </summary>
+    public void Jump()
+    {
+       //TODO
+    }
     #endregion
     /// <summary>
-    /// Used to initialize references
+    /// START
+    /// Needs to assign _myCharacterController, _myTransform and _cameraController.
+    /// If InputManager is already assigned, it will also register the player on it.
     /// </summary>
     void Start()
     {
@@ -62,9 +91,15 @@ public class CharacterMovement : MonoBehaviour
         _myCharacterController = GetComponent<CharacterController>();
     }
     /// <summary>
-    /// Used to set movement direction, apply speed to character controller
-    /// and set forward direction of the player
+    /// UPDATE
+    /// Needs to calculate and normalize horizontal movement direction
+    /// Needs to update vertical speed according to gravity
+    /// Finally move the character according to desired _movementSpeed in horizontal and updated _verticalSpeed
+    /// Final details:
+    /// -Ensure the character looks in the desired direction according to move direction.
+    /// -Ensure to set the vertical following behaviour for camera depending on whether the character is grounded or not.
     /// </summary>
+
     void Update()
     {
         // Creamos el Vector3 que determina la dirección en función del input recogido.
