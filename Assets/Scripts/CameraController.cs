@@ -57,14 +57,14 @@ public class CameraController : MonoBehaviour
     /// </summary>
     void Start()
     {
-        //TODO }
+        _myTransform = transform;
         /// <summary>
         /// LATE UPDATE
         /// Needs to calculate the desired position for the camera.
         /// This calculation will differ depending on _yFollowEnabled.
-        /// Once calculated, the new camera position can be assigned accorging to it, in a smoothed way.
-    /// </summary>
-    void LateUpdate()
+        /// Once calculated, the new camera position can be assigned according to it, in a smoothed way.
+        /// </summary>
+        void LateUpdate()
         {
             //TODO
         }

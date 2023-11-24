@@ -22,7 +22,8 @@ public class AnimationComponent : MonoBehaviour
     /// </summary>
     void Start()
     {
-        //TODO
+        _myCharacterController = GetComponent<CharacterController>();
+        _myAnimator = GetComponent<Animator>();
     }
     /// <summary>
     /// UPDATE
@@ -31,6 +32,18 @@ public class AnimationComponent : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //TODO
+        if (_myCharacterController.isGrounded && _myCharacterController.velocity != Vector3.zero)
+        {
+            _myAnimator.SetInteger("AnimState", 1);
+        }
+        else if (!_myCharacterController.isGrounded && _myCharacterController.velocity != Vector3.zero)
+        {
+            _myAnimator.SetInteger("AnimState", 2);
+        }
+        else 
+        {
+            _myAnimator.SetInteger("AnimState", 0);
+        }
+        
     }
 }

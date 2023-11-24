@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        //TODO
+        _input = GetComponent<InputManager>();
     }
     #endregion
 }
