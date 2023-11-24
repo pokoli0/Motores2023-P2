@@ -16,7 +16,7 @@ public class InputManager : MonoBehaviour
     /// <param name="playerCharacterMovement">Player's CharacterMovement (Component to be reigstered)</param>
     public void RegisterPlayer(CharacterMovement playerCharacterMovement)
     {
-        //TODO
+        
     }
     #endregion
 
@@ -32,5 +32,10 @@ public class InputManager : MonoBehaviour
         //o negativo (hasta -1) para el eje X o Z en función del input. Será 0 si no hay input.
         _playerCharacterMovement.SetHorizontalInput(Input.GetAxis("Horizontal"));
         _playerCharacterMovement.SetVerticalInput(Input.GetAxis("Vertical"));
+        if (Input.GetKeyDown("space"))
+        {
+            Debug.Log("Me cagontó salto");
+            _playerCharacterMovement.Jump();
+        }
     }
 }

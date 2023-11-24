@@ -76,7 +76,10 @@ public class CharacterMovement : MonoBehaviour
     /// </summary>
     public void Jump()
     {
-       //TODO
+       if (_myCharacterController.isGrounded) 
+       {
+            _verticalSpeed += _jumpSpeed;
+       }
     }
     #endregion
     /// <summary>
@@ -89,6 +92,8 @@ public class CharacterMovement : MonoBehaviour
         // Inicializamos las referencias al transform y el CharacterController del player.
         _myTransform = transform;
         _myCharacterController = GetComponent<CharacterController>();
+
+        _verticalSpeed = -1.0f;
     }
     /// <summary>
     /// UPDATE
@@ -103,15 +108,21 @@ public class CharacterMovement : MonoBehaviour
     void Update()
     {
         // Creamos el Vector3 que determina la dirección en función del input recogido.
-        _movementDirection = new Vector3(_xAxis, 0, _zAxis);
+        _movementDirection = new Vector3(_xAxis, _verticalSpeed, _zAxis).normalized;
+
+
+
+        if (_verticalSpeed < _minSpeed) _verticalSpeed += Physics.gravity.y;
+
         // Usamos el método Move, que mueve el gameObject en la dirección determinada por
         //_movementDirection, y con la velocidad _movementSpeed. 
         _myCharacterController.Move(_movementDirection * Time.deltaTime * _movementSpeed);
+        //Actualizamos la _verticalSpeed en función del valor de la gravedad
 
-        if(_movementDirection != Vector3.zero)
-        {
-            // Para que mire en la dirección del movimiento: 
-            _myTransform.forward = _movementDirection.normalized; 
-        }
+        //if (_movementDirection != Vector3.zero)
+        //{
+        //    // Para que mire en la dirección del movimiento: 
+        //    _myTransform.forward = _movementDirection.normalized;
+        //}
     }
 }
