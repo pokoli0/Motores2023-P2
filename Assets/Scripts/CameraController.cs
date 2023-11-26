@@ -58,15 +58,20 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         _myTransform = transform;
-        /// <summary>
-        /// LATE UPDATE
-        /// Needs to calculate the desired position for the camera.
-        /// This calculation will differ depending on _yFollowEnabled.
-        /// Once calculated, the new camera position can be assigned according to it, in a smoothed way.
-        /// </summary>
-        void LateUpdate()
-        {
-            //TODO
-        }
+        _myTransform.LookAt(_targetTransform.position + _verticalOffset * Vector3.up); // rotation
+        _myTransform.position = new(_targetTransform.position.x, _targetTransform.position.y + _verticalOffset, _targetTransform.position.z - _horizontalOffset); // sets position to target position
+
+    }
+    /// <summary>
+    /// LATE UPDATE
+    /// Needs to calculate the desired position for the camera.
+    /// This calculation will differ depending on _yFollowEnabled.
+    /// Once calculated, the new camera position can be assigned according to it, in a smoothed way.
+    /// </summary>
+    void LateUpdate()
+    {
+        // interpola entre la posición actual y la siguiente en base al tiempo y al followFactor
+        Vector3 interpolationVector = new(_targetTransform.position.x, _targetTransform.position.y + _verticalOffset, _targetTransform.position.z - _horizontalOffset); // sets destination vector (end of interpolation) to target position
+        _myTransform.position = Vector3.Lerp(_myTransform.position, interpolationVector, _followFactor * Time.deltaTime); // interpolates current position to destination position
     }
 }
