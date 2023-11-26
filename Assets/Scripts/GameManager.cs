@@ -48,6 +48,10 @@ public class GameManager : MonoBehaviour
     public void ReleaseFlower()
     {
         _nFlowers--;
+        if (_nFlowers == 0)
+        {
+            RestartLevel();
+        }
         Debug.Log(_nFlowers);
     }
     /// <summary>
@@ -55,11 +59,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void RestartLevel()
     {
-        if(_nFlowers == 0)
-        {
-            SceneManager.LoadScene(0);
-            //_instance = null; //dice andres que esto no
-        }
+        SceneManager.LoadScene(0);
     }
     /// <summary>
     /// AWAKE
