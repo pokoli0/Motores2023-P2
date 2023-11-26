@@ -48,7 +48,14 @@ public class CameraController : MonoBehaviour
     /// <param name="verticalFollowEnabled"></param>
     public void SetVerticalFollow(bool verticalFollowEnabled)
     {
-        //TODO
+        if (verticalFollowEnabled)
+        {
+            _yFollowEnabled = true;
+        }
+        else
+        {
+            _yFollowEnabled = false;
+        }
     }
     #endregion
     /// <summary>
@@ -59,7 +66,9 @@ public class CameraController : MonoBehaviour
     {
         _myTransform = transform;
         _myTransform.LookAt(_targetTransform.position + _verticalOffset * Vector3.up); // rotation
-        _myTransform.position = new(_targetTransform.position.x, _targetTransform.position.y + _verticalOffset, _targetTransform.position.z - _horizontalOffset); // sets position to target position
+        _myTransform.position = 
+            new(_targetTransform.position.x, _targetTransform.position.y + _verticalOffset,
+            _targetTransform.position.z - _horizontalOffset); // sets position to target position
 
     }
     /// <summary>

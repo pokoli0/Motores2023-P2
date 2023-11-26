@@ -38,7 +38,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void RegisterFlower()
     {
-        //TODO
+        _nFlowers++;
+        Debug.Log(_nFlowers);
     }
     /// <summary>
     /// Public method to allow flowers release.
@@ -46,25 +47,36 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ReleaseFlower()
     {
-        //TODO
+        _nFlowers--;
+        Debug.Log(_nFlowers);
     }
     /// <summary>
     /// In this case, restarting the level means reloading the Game scene.
     /// </summary>
     private void RestartLevel()
     {
-        //TODO
+        if(_nFlowers == 0)
+        {
+            SceneManager.LoadScene(0);
+            //_instance = null; //dice andres que esto no
+        }
     }
     /// <summary>
     /// AWAKE
     /// Needs to check if there already is an assigned _instance of GameManager.
-    /// If this is the case, it will destroy its own-object, as this proofs it is not the first time the scene gets loaded,
+    /// If this is the case, it will destroy its own-object, as this proofs it is not the first time 
+    /// the scene gets loaded,
     /// and we cannot have two instances of GameManager neither want to have duplicated InputManagers.
     /// Otherwise, _instance is self-assigned and the object set to not be destroyed on load.
     /// </summary>
     private void Awake()
     {
-        //TODO
+        if(Instance == null)
+        {
+            _instance = this;
+        }
+
+        //hay que hacer algo igual con el input
     }
     /// <summary>
     /// START
