@@ -78,7 +78,7 @@ public class CharacterMovement : MonoBehaviour
     {
        if (_myCharacterController.isGrounded) 
        {
-            _verticalSpeed += _jumpSpeed;
+            _verticalSpeed = _jumpSpeed;
        }
     }
     #endregion
@@ -95,6 +95,11 @@ public class CharacterMovement : MonoBehaviour
         _cameraController = FindObjectOfType<CameraController>();
 
         _verticalSpeed = -1.0f;
+
+        if (GetComponent<InputManager>() != null)
+        {
+            GameManager.Instance.Input.RegisterPlayer(this);
+        }
     }
     /// <summary>
     /// UPDATE
@@ -108,7 +113,6 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
-        
         // Creamos el Vector3 que determina la dirección en función del input recogido.
         _movementDirection = new Vector3(_xAxis, 0, _zAxis).normalized;
 
@@ -127,6 +131,5 @@ public class CharacterMovement : MonoBehaviour
         }
 
         _cameraController.SetVerticalFollow(_myCharacterController.isGrounded);
-
     }
 }

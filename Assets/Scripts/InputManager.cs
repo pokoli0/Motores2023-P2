@@ -16,7 +16,7 @@ public class InputManager : MonoBehaviour
     /// <param name="playerCharacterMovement">Player's CharacterMovement (Component to be reigstered)</param>
     public void RegisterPlayer(CharacterMovement playerCharacterMovement)
     {
-        
+        _playerCharacterMovement = playerCharacterMovement;
     }
     #endregion
 
@@ -34,8 +34,7 @@ public class InputManager : MonoBehaviour
         _playerCharacterMovement.SetVerticalInput(Input.GetAxis("Vertical"));
         if (Input.GetKeyDown("space"))
         {
-            Debug.Log("Me cagontó salto");
             _playerCharacterMovement.Jump();
-        }
+        }   
     }
 }

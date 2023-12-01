@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour
     public void RegisterFlower()
     {
         _nFlowers++;
-        Debug.Log(_nFlowers);
     }
     /// <summary>
     /// Public method to allow flowers release.
@@ -52,7 +51,6 @@ public class GameManager : MonoBehaviour
         {
             RestartLevel();
         }
-        Debug.Log(_nFlowers);
     }
     /// <summary>
     /// In this case, restarting the level means reloading the Game scene.
@@ -75,8 +73,6 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
-
-        //hay que hacer algo igual con el input
     }
     /// <summary>
     /// START

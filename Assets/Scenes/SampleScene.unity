@@ -2226,7 +2226,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5059212501929847038, guid: bbaee4d6498bdb84eb555bddc61ffd0b, type: 3}
       propertyPath: _jumpSpeed
-      value: 15
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5943158875174019812, guid: bbaee4d6498bdb84eb555bddc61ffd0b, type: 3}
       propertyPath: m_Height
