@@ -44,6 +44,5 @@ public class AnimationComponent : MonoBehaviour
         {
             _myAnimator.SetInteger("AnimState", 0);
         }
-        
     }
 }

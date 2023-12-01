@@ -92,6 +92,7 @@ public class CharacterMovement : MonoBehaviour
         // Inicializamos las referencias al transform y el CharacterController del player.
         _myTransform = transform;
         _myCharacterController = GetComponent<CharacterController>();
+        _cameraController = FindObjectOfType<CameraController>();
 
         _verticalSpeed = -1.0f;
     }
@@ -107,6 +108,7 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
+        
         // Creamos el Vector3 que determina la dirección en función del input recogido.
         _movementDirection = new Vector3(_xAxis, 0, _zAxis).normalized;
 
@@ -123,5 +125,8 @@ public class CharacterMovement : MonoBehaviour
             // Para que mire en la dirección del movimiento: 
             _myTransform.forward = _movementDirection.normalized;
         }
+
+        _cameraController.SetVerticalFollow(_myCharacterController.isGrounded);
+
     }
 }

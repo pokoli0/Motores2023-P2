@@ -35,7 +35,7 @@ public class CameraController : MonoBehaviour
     /// <summary>
     /// If disabled, the camera does not follow target in vertical axis and keeps its own Y coordinate.
     /// </summary>
-     private bool _yFollowEnabled = true;
+    private bool _yFollowEnabled = true;
     /// <summary>
     /// Stores own previous position's Y coordinate, to be able to keep it in case vertical following is disabled.
     /// </summary>
@@ -51,6 +51,7 @@ public class CameraController : MonoBehaviour
         if (verticalFollowEnabled)
         {
             _yFollowEnabled = true;
+            _yPreviousFrameValue = _targetTransform.position.y;
         }
         else
         {
@@ -65,6 +66,7 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         _myTransform = transform;
+        _yPreviousFrameValue = _targetTransform.position.y;
         _myTransform.LookAt(_targetTransform.position + _verticalOffset * Vector3.up); // rotation
         _myTransform.position = 
             new(_targetTransform.position.x, _targetTransform.position.y + _verticalOffset,
@@ -79,8 +81,17 @@ public class CameraController : MonoBehaviour
     /// </summary>
     void LateUpdate()
     {
-        // interpola entre la posición actual y la siguiente en base al tiempo y al followFactor
         Vector3 interpolationVector = new(_targetTransform.position.x, _targetTransform.position.y + _verticalOffset, _targetTransform.position.z - _horizontalOffset); // sets destination vector (end of interpolation) to target position
-        _myTransform.position = Vector3.Lerp(_myTransform.position, interpolationVector, _followFactor * Time.deltaTime); // interpolates current position to destination position
+        // interpola entre la posición actual y la siguiente en base al tiempo y al followFactor
+        if (_yFollowEnabled)
+        {
+            _myTransform.position = Vector3.Lerp(_myTransform.position, interpolationVector, _followFactor * Time.deltaTime); // interpolates current position to destination position
+        }
+        else
+        {
+            interpolationVector = new(_targetTransform.position.x, _yPreviousFrameValue + _verticalOffset, _targetTransform.position.z - _horizontalOffset); // sets destination vector (end of interpolation) to target position
+            _myTransform.position = Vector3.Lerp(_myTransform.position, interpolationVector, _followFactor * Time.deltaTime); // interpolates current position to destination position
+        }
+
     }
 }
