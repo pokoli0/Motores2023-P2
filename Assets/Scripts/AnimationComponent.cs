@@ -32,6 +32,9 @@ public class AnimationComponent : MonoBehaviour
     /// </summary>
     void Update()
     {
+        // Creamos parámetro int AnimState en el Animator, que iremos cambiando con SetInteger()
+        // a los valores 0, en caso de transición a idle; 1, en caso de que corra;
+        // y 2, en caso de que salte, comprobando si está tocando el suelo.
         if (_myCharacterController.isGrounded && _myCharacterController.velocity != Vector3.zero)
         {
             _myAnimator.SetInteger("AnimState", 1);

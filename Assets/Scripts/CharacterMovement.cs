@@ -65,13 +65,13 @@ public class CharacterMovement : MonoBehaviour
     /// Public method to set the vertical component of the movement direction
     /// </summary>
     /// <param name="y">Desired vertical component</param>
-    public void SetVerticalInput(float y)
+    public void SetVerticalInput(float y) // No sería float z ???
     {
         _zAxis = y;
     }
     /// <summary>
     /// Public method called when the player tries to perform a new Jump. (Will be called from InputManager)
-    /// If the Character is grounded, it overrides current value or _verticalSpeed with _jumpSpeed.
+    /// If the Character is grounded, it overrides current value of _verticalSpeed with _jumpSpeed.
     /// Otherwise, the request to jump is ignored.
     /// </summary>
     public void Jump()
@@ -94,8 +94,9 @@ public class CharacterMovement : MonoBehaviour
         _myCharacterController = GetComponent<CharacterController>();
         _cameraController = FindObjectOfType<CameraController>();
 
-        _verticalSpeed = -1.0f;
-
+        // Comprobamos si el jugador recibe input, hacemos llamada al Singleton del GameManager,
+        // con el que podemos acceder al método RegisterPlayer del Input (no tenemos referencias
+        // del input en el CharacterMovement Component)
         if (GetComponent<InputManager>() != null)
         {
             GameManager.Instance.Input.RegisterPlayer(this);
@@ -130,6 +131,8 @@ public class CharacterMovement : MonoBehaviour
             _myTransform.forward = _movementDirection.normalized;
         }
 
+        // Cuando el personaje esté en el suelo, se asigna el seguimiento vertical (nuevo valor
+        // del booleano _yFollowEnabled).
         _cameraController.SetVerticalFollow(_myCharacterController.isGrounded);
     }
 }
