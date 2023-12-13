@@ -67,8 +67,7 @@ public class CameraController : MonoBehaviour
         _yPreviousFrameValue = _targetTransform.position.y;
 
         // Rotación de la cámara (no va a cambiar)
-        // Para que rote un poco más en el eje Y sumamos el _verticalOffset*Vector3.up (cuestión estética)
-        _myTransform.LookAt(_targetTransform.position + _verticalOffset * Vector3.up); 
+        _myTransform.LookAt(_targetTransform); 
 
         // Posición inicial de la cámara, fijada donde esta el target.
         _myTransform.position = 
@@ -83,29 +82,30 @@ public class CameraController : MonoBehaviour
     /// </summary>
     void LateUpdate()
     {
-        Vector3 interpolationVector = new Vector3(_targetTransform.position.x, _targetTransform.position.y + _verticalOffset, 
-                _targetTransform.position.z - _horizontalOffset);
+        // Creamos vector destino
+        Vector3 destinationVector;
            
         if (_yFollowEnabled)
         {
-            interpolationVector = 
-                new(_targetTransform.position.x, _targetTransform.position.y + _verticalOffset, 
-                _targetTransform.position.z - _horizontalOffset); // sets destination vector (end of interpolation) to target position
+            destinationVector = 
+                new(_targetTransform.position.x,
+                _targetTransform.position.y + _verticalOffset, 
+                _targetTransform.position.z - _horizontalOffset);
         }
-
-        if (!_yFollowEnabled)
+        else
         {
             // Si no hacemos seguimiento en Y, tendremos en cuenta el frame anterior de Y, guardado
             // inicialmente en el Start.
-            interpolationVector =
-                new(_targetTransform.position.x, _yPreviousFrameValue + _verticalOffset,
+            destinationVector =
+                new(_targetTransform.position.x,
+                _yPreviousFrameValue + _verticalOffset,
                 _targetTransform.position.z - _horizontalOffset);
         }
 
-        // Interpola entre la posición actual y el interpolationVector (el vector destino),
+        // Interpola entre la posición actual y el destinationVector,
         // haciendo que la cámara se mueva de forma suave, en base al tiempo y al followFactor.
         _myTransform.position =
-                Vector3.Lerp(_myTransform.position, interpolationVector, _followFactor * Time.deltaTime);
+                Vector3.Lerp(_myTransform.position, destinationVector, _followFactor * Time.deltaTime);
 
     }
 }

@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Current number of registered flowers.
     /// </summary>
-    private float _nFlowers;
+    private float _nFlowers; // Número de flores activas en la escena.
     #endregion
     #region methods
     /// <summary>
@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
     public void ReleaseFlower()
     {
         _nFlowers--;
+        // Si se han desactivado todas las flores de la escena, volvemos a empezar
+        // el nivel.
         if (_nFlowers == 0)
         {
             RestartLevel();
@@ -69,9 +71,15 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        // Para que haya un único gameManager activo.
         if(Instance == null)
         {
             _instance = this;
+        }
+        else
+        {
+            // Si ya hay una instancia, destruimos el gameObject.
+            Destroy(gameObject);
         }
     }
     /// <summary>
