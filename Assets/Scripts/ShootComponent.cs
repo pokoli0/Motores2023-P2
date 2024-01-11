@@ -14,32 +14,34 @@ public class ShootComponent : MonoBehaviour
     [SerializeField]
     private GameObject _bulletPrefab;
 
-    private Transform _myTransform; //el transform del player
+    [SerializeField]
+    private Transform _spawnPoint;
 
-    
+    private Transform _myTransform;
+  
     public void Shoot()
     {
-        Instantiate(_bulletPrefab, _myTransform.position, Quaternion.identity);
-        Debug.Log("pium");
+        Vector3 _bulletDirection = _spawnPoint.position - _myTransform.position;
 
+        _bulletDirection.y = 0; // Para que no suba/baje
+
+        Instantiate(_bulletPrefab, _spawnPoint.position, _spawnPoint.rotation).
+            GetComponent<BulletComponent>().SetDirection(_bulletDirection);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         _myTransform = transform;
-
         if (GetComponent<InputManager>() != null)
         {
             GameManager.Instance.Input.RegisterPlayer(this);
         }
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Cuando reciba una posicion, podra spawnear bala
 
 
     }

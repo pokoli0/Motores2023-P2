@@ -11,25 +11,30 @@ public class BulletComponent : MonoBehaviour
     [SerializeField]
     private float _bulletSpeed = 2.0f;
 
-    private Transform _bulletTransform;
+    private Transform _myTransform; //transform de la bala 
 
-    private Vector3 _direction;
+    private Vector3 _myDirection;
 
-    [SerializeField]
-    //private Transform _playerT;
+
+    public void SetDirection(Vector3 direction)
+    {
+        _myDirection = direction.normalized;
+    }
+
+    public void Movement()
+    {
+        _myTransform.position += _myDirection * Time.deltaTime * _bulletSpeed;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        _bulletTransform = transform;
+        _myTransform = transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        _direction = FindObjectOfType<CharacterMovement>().getDirection();
-        //_direction = _playerT.GetComponent<CharacterMovement>().getDirection();
-        //movimientou
-        _bulletTransform.Translate(_direction * _bulletSpeed * Time.deltaTime);
+        Movement();
     }
 }
