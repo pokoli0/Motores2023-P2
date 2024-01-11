@@ -33,6 +33,8 @@ public class CharacterMovement : MonoBehaviour
     /// Reference to Camera's CameraController
     /// </summary>
     private CameraController _cameraController;
+
+    private ShootComponent _shootComponent;
     #endregion
     #region properties
     /// <summary>
@@ -80,6 +82,11 @@ public class CharacterMovement : MonoBehaviour
        {
             _verticalSpeed = _jumpSpeed;
        }
+    }
+
+    public Vector3 getDirection()
+    {
+        return _movementDirection;
     }
     #endregion
     /// <summary>
@@ -134,5 +141,7 @@ public class CharacterMovement : MonoBehaviour
         // Cuando el personaje esté en el suelo, se asigna el seguimiento vertical (nuevo valor
         // del booleano _yFollowEnabled).
         _cameraController.SetVerticalFollow(_myCharacterController.isGrounded);
+
+        
     }
 }

@@ -8,6 +8,9 @@ public class InputManager : MonoBehaviour
     /// </summary>
     [SerializeField]
     private CharacterMovement _playerCharacterMovement;
+
+    [SerializeField]
+    private ShootComponent _shootComponent;
     
     #region methods
     /// <summary>
@@ -17,6 +20,11 @@ public class InputManager : MonoBehaviour
     public void RegisterPlayer(CharacterMovement playerCharacterMovement)
     {
         _playerCharacterMovement = playerCharacterMovement;
+    }
+
+    public void RegisterPlayer(ShootComponent shootComponent)
+    {
+        _shootComponent = shootComponent;
     }
     #endregion
 
@@ -35,6 +43,12 @@ public class InputManager : MonoBehaviour
         if (Input.GetKeyDown("space"))
         {
             _playerCharacterMovement.Jump();
-        }   
+        }
+
+        // Llamamos a los metodos de ShootComponent cuando se reciba el input
+        if (Input.GetKeyDown("e"))
+        {
+            _shootComponent.Shoot();
+        }
     }
 }
