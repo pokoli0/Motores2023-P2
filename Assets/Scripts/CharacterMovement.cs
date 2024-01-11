@@ -53,6 +53,12 @@ public class CharacterMovement : MonoBehaviour
     /// Movement vertical speed (needs to be updated every frame due to gravity)
     /// </summary>
     private float _verticalSpeed;
+
+
+    private bool _doubleJump;
+
+
+
     #endregion
     #region methods
     /// <summary>
@@ -81,6 +87,12 @@ public class CharacterMovement : MonoBehaviour
        if (_myCharacterController.isGrounded) 
        {
             _verticalSpeed = _jumpSpeed;
+            _doubleJump = true;
+       }
+       else if (_doubleJump)
+       {
+           _verticalSpeed = _jumpSpeed; // Segundo salto
+           _doubleJump = false; // Después del doble salto, ya no puedes saltar hasta que toques el suelo nuevamente.
        }
     }
 
@@ -96,6 +108,8 @@ public class CharacterMovement : MonoBehaviour
     /// </summary>
     void Start()
     {
+        _doubleJump = false;
+
         // Inicializamos las referencias al transform y el CharacterController del player.
         _myTransform = transform;
         _myCharacterController = GetComponent<CharacterController>();

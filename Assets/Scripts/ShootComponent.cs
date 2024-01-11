@@ -25,7 +25,8 @@ public class ShootComponent : MonoBehaviour
 
         _bulletDirection.y = 0; // Para que no suba/baje
 
-        Instantiate(_bulletPrefab, _spawnPoint.position, _spawnPoint.rotation).
+        //Instantiate devuelve el prefab de la bala!
+        Instantiate(_bulletPrefab, _spawnPoint.position, Quaternion.identity).
             GetComponent<BulletComponent>().SetDirection(_bulletDirection);
     }
 

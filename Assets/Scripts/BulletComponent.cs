@@ -5,8 +5,7 @@ using UnityEngine;
 public class BulletComponent : MonoBehaviour
 {
     //esto lo tendra el prefab de la bala!!
-    //se encargara del movimiento de la bala, de las colisiones,
-    //y de autodestruirse cuando llegue a x punto
+    //se encargara del movimiento de la bala, de las colisiones
 
     [SerializeField]
     private float _bulletSpeed = 2.0f;
@@ -15,6 +14,10 @@ public class BulletComponent : MonoBehaviour
 
     private Vector3 _myDirection;
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        Destroy(gameObject); //Se rompe la bala.
+    }
 
     public void SetDirection(Vector3 direction)
     {
