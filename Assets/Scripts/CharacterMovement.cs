@@ -54,9 +54,8 @@ public class CharacterMovement : MonoBehaviour
     /// </summary>
     private float _verticalSpeed;
 
-
+    //condición para saltar, si es true, se podra hacer el doble salto, si no, no
     private bool _doubleJump;
-
 
 
     #endregion
@@ -96,10 +95,6 @@ public class CharacterMovement : MonoBehaviour
        }
     }
 
-    public Vector3 getDirection()
-    {
-        return _movementDirection;
-    }
     #endregion
     /// <summary>
     /// START
